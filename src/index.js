@@ -13,7 +13,7 @@ export default class BaseballGame {
             inputNumberSet.add(randomNumber)
         }
         const computerInputNumbers = Number([...inputNumberSet].join(""));
-        console.log(randomNumber);
+        console.log(computerInputNumbers);
         return computerInputNumbers;
     }
     
