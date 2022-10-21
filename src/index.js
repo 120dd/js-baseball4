@@ -9,12 +9,14 @@ export default class BaseballGame {
 	constructor(elem) {
 		this._elem = elem;
 		elem.onclick = this.onClick.bind(this);
-		this.computerInputNumber = this.makeComputerInputNumbers();
 		this.init();
 	}
 
 	init() {
+		this.computerInputNumber = this.makeComputerInputNumbers();
 		this.hiddenRestartButton();
+		this.removeResult();
+		this.removeInputValue();
 	}
 
 	makeComputerInputNumbers() {
@@ -73,8 +75,8 @@ export default class BaseballGame {
 			return;
 		}
 		const result = this.play(this.computerInputNumber, userInput);
-		console.log(result);
 		this.renderResult(result);
+		this.removeInputValue();
 	}
 
 	renderResult(result) {
@@ -94,11 +96,23 @@ export default class BaseballGame {
 		DOM(SELECTORS.RESTART_BUTTON).style.display = 'block';
 	}
 
+	removeInputValue() {
+		DOM(SELECTORS.INPUT).value = '';
+	}
+
 	checkUserInput(userInput) {
 		const re = /[1-9]/;
 		if (re.test(userInput) && userInput.toString().length === 3) {
 			return true;
 		}
+	}
+
+	removeResult() {
+		DOM(SELECTORS.RESULT).innerText = '';
+	}
+
+	restart() {
+		this.init();
 	}
 
 	onClick(event) {
